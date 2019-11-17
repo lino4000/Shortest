@@ -5,24 +5,12 @@
  */
 package view;
 
+import control.Export;
 import control.StartSorter;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.File;
-import java.util.HashSet;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import javax.swing.JCheckBox;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.ListModel;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.data.xy.DefaultTableXYDataset;
-import org.jfree.data.xy.DefaultXYDataset;
 
 /**
  *
@@ -35,6 +23,7 @@ public class Screen extends javax.swing.JFrame {
      */
     public Screen() {
         initComponents();
+        ltFiles.setFixedCellWidth(315);
         addListeners();
     }
 
@@ -95,6 +84,7 @@ public class Screen extends javax.swing.JFrame {
         pnLoadFiles.setFocusable(false);
         pnLoadFiles.setFont(pnLoadFiles.getFont());
 
+        ltFiles.setMaximumSize(new java.awt.Dimension(315, 0));
         scListFiles.setViewportView(ltFiles);
 
         btOpenFiles.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/folder-add.png"))); // NOI18N
@@ -111,7 +101,7 @@ public class Screen extends javax.swing.JFrame {
             pnLoadFilesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnLoadFilesLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scListFiles)
+                .addComponent(scListFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btOpenFiles)
                 .addContainerGap())
@@ -173,7 +163,7 @@ public class Screen extends javax.swing.JFrame {
             }
         });
 
-        cbMetHeapsort.setText("Heapsort");
+        cbMetHeapsort.setText("QuickSort 2");
         cbMetHeapsort.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMetHeapsortActionPerformed(evt);
@@ -208,26 +198,24 @@ public class Screen extends javax.swing.JFrame {
             .addGroup(pnMethodsLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(pnMethodsLayout.createSequentialGroup()
-                        .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(pnMethodsLayout.createSequentialGroup()
-                                .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(cbMetInsertion)
-                                    .addComponent(cbMetSelection))
-                                .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(pnMethodsLayout.createSequentialGroup()
                             .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cbMetQuicksort)
-                                .addComponent(cbMetBitonic)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pnMethodsLayout.createSequentialGroup()
+                                .addComponent(cbMetInsertion)
+                                .addComponent(cbMetSelection))
+                            .addGap(26, 26, 26))
+                        .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbMetQuicksort)
+                            .addComponent(cbMetBitonic)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnMethodsLayout.createSequentialGroup()
                         .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbMetBubble)
                             .addComponent(cbMetMerge))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbMetRadix)
-                            .addComponent(cbMetHeapsort))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(cbMetHeapsort))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnParams.setBorder(javax.swing.BorderFactory.createTitledBorder("3 - Demais parâmetros"));
@@ -268,9 +256,19 @@ public class Screen extends javax.swing.JFrame {
 
         btSaveTxt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/file-save.png"))); // NOI18N
         btSaveTxt.setToolTipText("Salvar em arquivo texto");
+        btSaveTxt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btSaveTxtMouseClicked(evt);
+            }
+        });
 
         btSaveImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/image-save.png"))); // NOI18N
         btSaveImage.setToolTipText("Salvar gráfico em imagem");
+        btSaveImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btSaveImageMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnExecuteLayout = new javax.swing.GroupLayout(pnExecute);
         pnExecute.setLayout(pnExecuteLayout);
@@ -281,9 +279,8 @@ public class Screen extends javax.swing.JFrame {
                 .addComponent(scStatus)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(btSaveImage)
-                        .addComponent(btSaveTxt))
+                    .addComponent(btSaveImage, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btSaveTxt, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btStartSorter, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
@@ -292,12 +289,12 @@ public class Screen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnExecuteLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnExecuteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(scStatus)
+                    .addComponent(scStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnExecuteLayout.createSequentialGroup()
                         .addComponent(btStartSorter)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btSaveTxt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btSaveImage)))
                 .addContainerGap())
         );
@@ -329,8 +326,6 @@ public class Screen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnExecute, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        pnParams.getAccessibleContext().setAccessibleName("3 - Demais parâmetros");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -371,6 +366,10 @@ public class Screen extends javax.swing.JFrame {
     public JPanel getMethodsPanel(){
         return pnMethods;
     }
+    
+    public JList getStatusDialog(){
+        return ltStatus;
+    }
 
     private void btOpenFilesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btOpenFilesActionPerformed
         fcOpenFiles.setMultiSelectionEnabled(true);
@@ -409,6 +408,16 @@ public class Screen extends javax.swing.JFrame {
     private void pnMethodsComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnMethodsComponentMoved
         // TODO add your handling code here:
     }//GEN-LAST:event_pnMethodsComponentMoved
+
+    private void btSaveTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSaveTxtMouseClicked
+        Export e = new Export();
+        e.toTXT(this);
+    }//GEN-LAST:event_btSaveTxtMouseClicked
+
+    private void btSaveImageMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btSaveImageMouseClicked
+        Export e = new Export();
+        e.toJPG(this);
+    }//GEN-LAST:event_btSaveImageMouseClicked
 
     /**
      * @param args the command line arguments

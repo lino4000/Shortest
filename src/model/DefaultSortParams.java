@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -25,9 +26,10 @@ public class DefaultSortParams {
     private List<String> methods;
     private int priority;
     private int type;
+    private DefaultListModel status;
 
     public DefaultSortParams() {
-        
+        status = new DefaultListModel();
     }
 
     public void setPaths(List<String> paths){
@@ -60,5 +62,9 @@ public class DefaultSortParams {
 
     public int getTypeAutoData(){
         return type;
+    }
+
+    public DefaultListModel getStatus() {
+        return status;
     }
 }

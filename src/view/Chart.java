@@ -9,12 +9,7 @@ import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.List;
-import java.util.function.Consumer;
-import javafx.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import org.jfree.chart.ChartFactory;
@@ -56,11 +51,15 @@ public class Chart {
     }
     
     public void update(int serie, double x, double y){
-        System.out.println("x: "+x+" y: "+y);
         dataset.getSeries(serie).addOrUpdate(x, y);
     }
     
     public void repaint(){
+        pnChart.paintImmediately(0,0,pnChart.getWidth(),pnChart.getHeight());
+    }
+    
+    public void removeAll(){
+        dataset.removeAllSeries();
         pnChart.paintImmediately(0,0,pnChart.getWidth(),pnChart.getHeight());
     }
     
@@ -83,7 +82,7 @@ public class Chart {
         chart.getLegend().setFrame(BlockBorder.NONE);
 
         chart.setTitle(new TextTitle("Tempo de ordenação por quantidade de elementos",
-                new Font("Verdana", Font.BOLD, 16)
+                new Font("Tahoma", Font.PLAIN, 11)//new Font("Verdana", Font.BOLD, 16)
             )
         );
     }

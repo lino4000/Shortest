@@ -7,8 +7,6 @@ package control;
 
 import java.awt.Component;
 import java.awt.event.MouseEvent;
-import view.SortParams;
-import event.MouseAdapterEnhanced;
 import java.awt.event.MouseAdapter;
 import view.Screen;
 
@@ -18,14 +16,12 @@ import view.Screen;
  */
 public class StartSorter extends MouseAdapter{
     
-    private Screen screen;
-    
     @Override
     public void mouseClicked(MouseEvent e) {
-        screen = getScreen(e.getComponent());
+        Screen screen = getScreen(e.getComponent());
 //        screen = getParentComponentOf(e.getComponent(), Screen.class);
         try {
-            Shortest.sorting(new SortParams(screen).getModel());
+            Shortest.sorting(new SortParams(screen).getModel(), screen.getStatusDialog());
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }

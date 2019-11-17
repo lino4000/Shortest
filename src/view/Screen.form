@@ -124,7 +124,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="scListFiles" max="32767" attributes="0"/>
+                      <Component id="scListFiles" min="-2" pref="315" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="btOpenFiles" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -158,6 +158,11 @@
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
                 <Component class="javax.swing.JList" name="ltFiles">
+                  <Properties>
+                    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                      <Dimension value="[315, 0]"/>
+                    </Property>
+                  </Properties>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -306,7 +311,7 @@
             </Component>
             <Component class="javax.swing.JCheckBox" name="cbMetHeapsort">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Heapsort"/>
+                <Property name="text" type="java.lang.String" value="QuickSort 2"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbMetHeapsortActionPerformed"/>
@@ -377,15 +382,13 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="scStatus" max="32767" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                              <Component id="btSaveImage" min="-2" max="-2" attributes="0"/>
-                              <Component id="btSaveTxt" alignment="0" min="-2" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="btSaveImage" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="btSaveTxt" alignment="1" min="-2" max="-2" attributes="0"/>
                           <Component id="btStartSorter" alignment="1" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -397,12 +400,12 @@
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Component id="scStatus" max="32767" attributes="0"/>
+                          <Component id="scStatus" min="-2" pref="145" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="btStartSorter" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btSaveTxt" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                               <Component id="btSaveImage" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -452,6 +455,9 @@
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Salvar em arquivo texto"/>
               </AccessibilityProperties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btSaveTxtMouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="btSaveImage">
               <Properties>
@@ -463,6 +469,9 @@
               <AccessibilityProperties>
                 <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Salvar gr&#xe1;fico em imagem"/>
               </AccessibilityProperties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btSaveImageMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

@@ -5,6 +5,7 @@
  */
 package control;
 
+import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -34,7 +35,7 @@ public class Shortest {
         screen.setVisible(true);
     }
     
-    public static void sorting(DefaultSortParams params) throws InterruptedException{
-        sorting.run(params);
+    public static void sorting(DefaultSortParams params, JList statusDialog) throws InterruptedException{
+        sorting.run(params, statusDialog);
     }
 }

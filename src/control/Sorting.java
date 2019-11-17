@@ -5,26 +5,26 @@
  */
 package control;
 
-import java.io.File;
+import sort.Bubble;
+import sort.QuickSort;
+import sort.Radix;
+import sort.Selection;
+import sort.Bitonic;
+import sort.Merge;
+import sort.Insertion;
+import sort.Sorter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-import java.util.function.Consumer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import model.*;
-import org.jfree.chart.ChartPanel;
-import service.SortResults;
+import sort.QuickSortIterative;
 import view.Chart;
 
 /**
@@ -34,99 +34,82 @@ import view.Chart;
 public class Sorting {
     
     private final StopWatch stopWatch;
-    private ArrayList<Sorter> sorter;
+    private ArrayList<SorterElement> sorter;
     private List<Path> paths;
     private int size;
-    private int file[] = {10000,100000};
     private Chart chart;
-    private SortResults results;
+    private DefaultListModel status;
     
     public Sorting(JPanel pn){
         stopWatch = new StopWatch();
         chart = new Chart(pn);
         sorter = new ArrayList<>();
-        results = new SortResults();
     }
     
-    public void run(DefaultSortParams params) throws InterruptedException{
+    public void run(DefaultSortParams params, JList statusDialog) throws InterruptedException{
         setParams(params);
+        chart.removeAll();
+        chart.addSeries(sorter.stream()
+                        .map((e) -> e.name)
+                        .collect(Collectors.toList())
+        );
         
-        // Méééé
-        chart.addSeries(results.setup(sorter));
-        
-        if(params.getTypeAutoData()>0 || true){
-            for(int f : file){
-                for(Sorter s : sorter){
-                    s.setData(getFile(f));
-                    stopWatch.setSorter(s);
-                    stopWatch.run();
-                    stopWatch.join();
-                    Double timed = stopWatch.getTimed();
-                    // Méé
-                    chart.update(sorter.indexOf(s), f, timed);
-                    
-                    results.addResult(sorter.indexOf(s), (double) f, timed);
+        for(Path p : paths) {
+            for(SorterElement s : sorter){
+                addStatus("Carregando arquivo: "+p.toString().substring(p.toString().lastIndexOf("\\")), statusDialog);
+                s.sorter.setData(getData(p));
+                stopWatch.setSorter(s.sorter);
+                addStatus("Ordenando com: " + s.name, statusDialog);
+                stopWatch.run();
+                stopWatch.join();
+                Double timed = stopWatch.getTimed();
+                addStatus("Tempo: " + timed, statusDialog);
+                chart.update(sorter.indexOf(s), this.size, timed);
 
-                    // POG
-                    if(timed > 2)
-                        chart.repaint();
-                    // Last time. I swear
-                    if(timed > 60){
-                        Thread.sleep(timed.intValue()/10);
-                    }
-                }
-            }
-        }else{
-            for(Path p : paths) {
-                for(Sorter s : sorter){
-                    s.setData(getData(p));
-                    stopWatch.setSorter(s);
-                    stopWatch.run();
-                    stopWatch.join();
-                    Double timed = stopWatch.getTimed();
-
-                    // Méé
-                    chart.update(sorter.indexOf(s), this.size, timed);
-                    
-                    results.addResult(sorter.indexOf(s), (double) this.size, timed);
-                    
-                    // POG
-                    if(timed > 2)
-                        chart.repaint();
-                    // Last time. I swear
-                    if(timed > 60){
-                        Thread.sleep(timed.intValue()/10);
-                    }
+                // POG
+                if(timed > 2)
+                    chart.repaint();
+                // Last time. I swear
+                if(timed > 60){
+                    Thread.sleep(timed.intValue()/10);
                 }
             }
         }
+        addStatus("Concluído.", statusDialog);
     }
     
     private void setParams(DefaultSortParams params){
         addSorters(params.getMethods());
         addPaths(params.getPaths());
         setPriority(params.getPriority());
+        setStatus(params.getStatus());
     }
     
     private void addSorters(List<String> methods){
+        sorter.clear();
         for(String s : methods){
             if(s.contains("Insertion"))
-                sorter.add(new Insertion());
+                sorter.add(new SorterElement(extractFromClass(Insertion.class), new Insertion()));
             if(s.contains("Selection"))
-                sorter.add(new Selection());
+                sorter.add(new SorterElement(extractFromClass(Selection.class), new Selection()));
             if(s.contains("Bubble"))
-                sorter.add(new Bubble());
+                sorter.add(new SorterElement(extractFromClass(Bubble.class), new Bubble()));
             if(s.contains("Merge"))
-                sorter.add(new Merge());
+                sorter.add(new SorterElement(extractFromClass(Merge.class), new Merge()));
             if(s.contains("Quicksort"))
-                sorter.add(new QuickSort());
+                sorter.add(new SorterElement(extractFromClass(QuickSort.class), new QuickSort()));
             if(s.contains("Bitonic"))
-                sorter.add(new Bitonic());
-            if(s.contains("HeapSort"))
-                sorter.add(new HeapSort());
+                sorter.add(new SorterElement(extractFromClass(Bitonic.class), new Bitonic()));
+            if(s.contains("QuickSort 2"))
+                sorter.add(new SorterElement(extractFromClass(QuickSortIterative.class), new QuickSortIterative()));
             if(s.contains("Radix"))
-                sorter.add(new Radix());
+                sorter.add(new SorterElement(extractFromClass(Radix.class), new Radix()));
         }
+    }
+    
+    private String extractFromClass(Class c){
+        String s = c.toString();
+        return s.substring(s.lastIndexOf(".")+1);
     }
     
     private void addPaths(List<String> paths){
@@ -151,6 +134,7 @@ public class Sorting {
     }
         
     private int[] getData(Path path){
+
         List<String> contents = loadData(path);
         int data[] = new int[contents.size()];
 
@@ -158,6 +142,8 @@ public class Sorting {
             int i = 0;
             for(String l : contents){
                 String d[] = l.split(",");
+                
+                // Counting seconds
                 data[i] =   (Integer.parseInt(d[5]))+
                             (Integer.parseInt(d[4]) * 60)+
                             (Integer.parseInt(d[3]) * 3600)+
@@ -205,23 +191,23 @@ public class Sorting {
         }
         return data;
     }
-/*    
-    private int[] getFile(int size){
-        int data[] = new int[size];
-        Random r = new Random();
-        for(int i=0;i<size;i++){
-            data[i] = r.nextInt(size * 10);
-        }
-        return data;
-    }
-*/
-    private int[] getFile(int size){
-        int data[] = new int[size];
-        //Random r = new Random();
-        for(int i=size;i>0;i--){
-            data[size-i] = i;//r.nextInt(size * 10);
-        }
-        return data;
-    }
 
+    private void setStatus(DefaultListModel status) {
+        this.status = status;
+    }
+    
+    private void addStatus(String s, JList statusDialog){
+        status.addElement(s);
+        statusDialog.setModel(status);
+    }
+    
+    private class SorterElement{
+        private String name;
+        private Sorter sorter;
+        
+        private SorterElement(String name, Sorter sorter){
+            this.name = name;
+            this.sorter = sorter;
+        }
+    }
 }

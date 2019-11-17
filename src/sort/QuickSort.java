@@ -3,12 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
-
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.stream.Collectors;
+package sort;
 
 /**
  *
@@ -52,16 +47,5 @@ public class QuickSort extends Sorter {
             super.data[i] = index;
         }
     return i;
-    }
-    
-    private int searchIndex(int first, int last){
-        int search[] = new int[3];
-        int i=0;
-        for(int s:search){
-            s = super.data[new Random().nextInt(last-first)+ first];
-            i++;
-        }
-        Arrays.sort(search);
-        return search[1];
     }
 }

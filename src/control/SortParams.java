@@ -3,16 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package view;
+package control;
 
 import java.awt.Component;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
+import javax.swing.JList;
 import javax.swing.ListModel;
 import model.DefaultSortParams;
+import view.Screen;
 import view.Screen;
 
 /**
@@ -27,6 +30,7 @@ public class SortParams {
         model.setPaths(getPaths(screen));
         model.setMethods(getMethods(screen));
         model.setPriority(getPriority(screen));
+        screen.getStatusDialog().setModel(model.getStatus());
     }
     
     public DefaultSortParams getModel(){
@@ -59,4 +63,5 @@ public class SortParams {
                 .map(cls::cast)
                 .collect(Collectors.toList());
     }
+
 }
