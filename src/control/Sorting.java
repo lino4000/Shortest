@@ -5,12 +5,7 @@
  */
 package control;
 
-import sort.Bubble;
-import sort.QuickSort;
-import sort.Radix;
 import sort.Selection;
-import sort.Bitonic;
-import sort.Merge;
 import sort.Insertion;
 import sort.Sorter;
 import java.io.IOException;
@@ -23,7 +18,7 @@ import java.util.stream.Collectors;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JPanel;
-import model.*;
+import model.DefaultSortParams;
 import sort.QuickSortIterative;
 import view.Chart;
 
@@ -92,18 +87,8 @@ public class Sorting {
                 sorter.add(new SorterElement(extractFromClass(Insertion.class), new Insertion()));
             if(s.contains("Selection"))
                 sorter.add(new SorterElement(extractFromClass(Selection.class), new Selection()));
-            if(s.contains("Bubble"))
-                sorter.add(new SorterElement(extractFromClass(Bubble.class), new Bubble()));
-            if(s.contains("Merge"))
-                sorter.add(new SorterElement(extractFromClass(Merge.class), new Merge()));
-            if(s.contains("Quicksort"))
-                sorter.add(new SorterElement(extractFromClass(QuickSort.class), new QuickSort()));
-            if(s.contains("Bitonic"))
-                sorter.add(new SorterElement(extractFromClass(Bitonic.class), new Bitonic()));
-            if(s.contains("QuickSort 2"))
+            if(s.contains("QuickSort"))
                 sorter.add(new SorterElement(extractFromClass(QuickSortIterative.class), new QuickSortIterative()));
-            if(s.contains("Radix"))
-                sorter.add(new SorterElement(extractFromClass(Radix.class), new Radix()));
         }
     }
     

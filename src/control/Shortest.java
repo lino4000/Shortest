@@ -5,11 +5,15 @@
  */
 package control;
 
+import java.util.Arrays;
+import java.util.Random;
 import javax.swing.JList;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 import model.DefaultSortParams;
+import sort.QuickSortIterative;
+import sort.Sorter;
 import view.Screen;
 
 /**
@@ -21,7 +25,6 @@ public class Shortest {
     private static final Sorting sorting = new Sorting(screen.getChartPanel());
     
     public static void main(String[] args) {
-        int i = 2018+12+(31*3600*24)+(23*3600)+(59*60)+59;
         try {
             for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Windows".equals(info.getName())) {

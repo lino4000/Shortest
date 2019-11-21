@@ -45,13 +45,8 @@ public class Screen extends javax.swing.JFrame {
         btOpenFiles = new javax.swing.JToggleButton();
         pnMethods = new javax.swing.JPanel();
         cbMetInsertion = new javax.swing.JCheckBox();
-        cbMetQuicksort = new javax.swing.JCheckBox();
         cbMetBubble = new javax.swing.JCheckBox();
-        cbMetRadix = new javax.swing.JCheckBox();
         cbMetSelection = new javax.swing.JCheckBox();
-        cbMetBitonic = new javax.swing.JCheckBox();
-        cbMetMerge = new javax.swing.JCheckBox();
-        cbMetHeapsort = new javax.swing.JCheckBox();
         pnParams = new javax.swing.JPanel();
         lbProcessador = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
@@ -131,44 +126,14 @@ public class Screen extends javax.swing.JFrame {
 
         cbMetInsertion.setText("Insertion Sort");
 
-        cbMetQuicksort.setText("Quicksort");
-
-        cbMetBubble.setText("Bubble Sort");
+        cbMetBubble.setText("Quicksort");
         cbMetBubble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMetBubbleActionPerformed(evt);
             }
         });
 
-        cbMetRadix.setText("Radix Sort");
-        cbMetRadix.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMetRadixActionPerformed(evt);
-            }
-        });
-
         cbMetSelection.setText("Selection Sort");
-
-        cbMetBitonic.setText("Bitonic Sort");
-        cbMetBitonic.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMetBitonicActionPerformed(evt);
-            }
-        });
-
-        cbMetMerge.setText("Merge Sort");
-        cbMetMerge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMetMergeActionPerformed(evt);
-            }
-        });
-
-        cbMetHeapsort.setText("QuickSort 2");
-        cbMetHeapsort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbMetHeapsortActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnMethodsLayout = new javax.swing.GroupLayout(pnMethods);
         pnMethods.setLayout(pnMethodsLayout);
@@ -176,46 +141,26 @@ public class Screen extends javax.swing.JFrame {
             pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnMethodsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbMetInsertion)
-                    .addComponent(cbMetQuicksort))
+                .addComponent(cbMetInsertion)
                 .addGap(18, 18, 18)
-                .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbMetSelection)
-                    .addComponent(cbMetBitonic))
+                .addComponent(cbMetSelection)
                 .addGap(18, 18, 18)
-                .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbMetBubble)
-                    .addComponent(cbMetRadix))
-                .addGap(18, 18, 18)
-                .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbMetHeapsort)
-                    .addComponent(cbMetMerge))
+                .addComponent(cbMetBubble)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnMethodsLayout.setVerticalGroup(
             pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnMethodsLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(pnMethodsLayout.createSequentialGroup()
-                            .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(cbMetInsertion)
-                                .addComponent(cbMetSelection))
-                            .addGap(26, 26, 26))
+                .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnMethodsLayout.createSequentialGroup()
                         .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbMetQuicksort)
-                            .addComponent(cbMetBitonic)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnMethodsLayout.createSequentialGroup()
-                        .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbMetBubble)
-                            .addComponent(cbMetMerge))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(pnMethodsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cbMetRadix)
-                            .addComponent(cbMetHeapsort))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbMetInsertion)
+                            .addComponent(cbMetSelection))
+                        .addContainerGap(33, Short.MAX_VALUE))
+                    .addGroup(pnMethodsLayout.createSequentialGroup()
+                        .addComponent(cbMetBubble)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pnParams.setBorder(javax.swing.BorderFactory.createTitledBorder("3 - Demais parâmetros"));
@@ -389,22 +334,6 @@ public class Screen extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbMetBubbleActionPerformed
 
-    private void cbMetRadixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMetRadixActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMetRadixActionPerformed
-
-    private void cbMetMergeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMetMergeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMetMergeActionPerformed
-
-    private void cbMetHeapsortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMetHeapsortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMetHeapsortActionPerformed
-
-    private void cbMetBitonicActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMetBitonicActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbMetBitonicActionPerformed
-
     private void pnMethodsComponentMoved(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_pnMethodsComponentMoved
         // TODO add your handling code here:
     }//GEN-LAST:event_pnMethodsComponentMoved
@@ -459,13 +388,8 @@ public class Screen extends javax.swing.JFrame {
     private javax.swing.JButton btSaveImage;
     private javax.swing.JButton btSaveTxt;
     private javax.swing.JButton btStartSorter;
-    private javax.swing.JCheckBox cbMetBitonic;
     private javax.swing.JCheckBox cbMetBubble;
-    private javax.swing.JCheckBox cbMetHeapsort;
     private javax.swing.JCheckBox cbMetInsertion;
-    private javax.swing.JCheckBox cbMetMerge;
-    private javax.swing.JCheckBox cbMetQuicksort;
-    private javax.swing.JCheckBox cbMetRadix;
     private javax.swing.JCheckBox cbMetSelection;
     private javax.swing.JFileChooser fcOpenFiles;
     private javax.swing.JSpinner jSpinner1;
